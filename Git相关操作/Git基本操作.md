@@ -13,6 +13,8 @@ git branch (branchname) 创建分支
 
 git checkout (branchname) 切换分支
 
+git checkout -b [新分支名] [标签名] 拉取标签快照生成一个分支
+
 ```
 
 
