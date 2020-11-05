@@ -15,6 +15,9 @@ git checkout (branchname) 切换分支
 
 git checkout -b [新分支名] [标签名] 拉取标签快照生成一个分支
 
+git show <tag_name> 查看标签的详细信息(包含commit的信息)
+
+git tag -ln [tag_name] 显示标签名及其描述信息
 ```
 
 
