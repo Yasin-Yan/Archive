@@ -519,4 +519,89 @@ ifconfig
   ACCEPT     tcp  --  0.0.0.0/0            172.17.0.5           tcp dpt:80
   ```
 
+
+
+
+#### Docker容器的数据管理
+
+> + Docker容器的数据卷
+> + Docker的数据卷容器
+> + Docker数据卷的备份与还原
+
+##### Docker容器的数据卷
+
++ 什么是数据卷
+
+  > + 数据卷是经过独特设计的目录，可以绕过联合文件系统(UFS)，为一个或多个容器提供访问
+  > + 数据卷设计的目的，在于数据的永久化，它完全独立于容器的生存周期，因此，Docker不会在容器删除时删除其挂载的数据卷，也不会存在类似的垃圾收集机制，对容器引用的数据卷进行处理
+
++ 数据卷的特点
+
+  > + 数据卷在容器启动时初始化，如果容器使用的镜像在挂载点包含了数据，这些数据会拷贝到新初始化的数据卷中
+  > + 数据卷可以在容器之间共享和重用
+  > + 可以对数据卷里的内容直接进行修改
+  > + 数据卷的变化不会影响镜像的更新
+  > + 卷会一直存在，即使挂载数据卷的容器已经被删除
+
++ 为容器添加数据卷
+
+  ```sh
+  sudo docker run -v ~/container_data:/data -it ubuntu /bin/bash
+  ```
+
++ 为数据卷添加访问权限
+
+  ```sh
+  sudo docker run -v ~/datavolume:/data:ro -it unbuntu /bin/bash # 只读
+  ```
+
++ 使用Dokerfile构建包含数据卷的镜像
+
+  ```dockerfile
+  VOLUME ["/data"]
+  ```
+
+##### Docker的数据卷容器
+
++ 什么是数据卷容器
+
+  命名的容器挂载数据卷，其他容器通过挂载这个容器实现数据共享，挂载数据卷的容器，就叫做数据卷容器
+
++ 挂载数据卷容器的方法
+
+  ```sh
+  docker run --volumes-from [CONTAINER NAME]
+  ```
+
+##### 数据卷的备份和还原
+
++ 数据备份方法
+
+  ```sh
+  docker run --volumes-from [container name] -v $(pwd):/backup ubuntu
+  tar cvf/backup/backup.tar [container data volume]
+  ```
+
+  ```sh
+  docker run --volumes-from dvt5 -v ~/backup:/backup --name dvt10 ubuntu tar cvf /backup/dvt5.tar /datavolume1
   
+  ls backup
+  ```
+
++ 数据还原
+
+  ```sh
+  docker run --volumes-from [container name] -v $(pwd):/backup ubuntu
+  tar xvf /backup/backup.tar [container data volume]
+  ```
+
+
+
+
+
+#### Docker容器的跨主机连接
+
+> + 使用网桥实现跨主机容器连接
+> + 使用Open vSwitch实现跨主机容器连接
+> + 使用weave实现跨主机容器连接
+
