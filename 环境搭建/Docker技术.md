@@ -306,7 +306,7 @@
 
 + 使用--registry-mirror选项
 
-  1. 修改：/etc/default/docker
+  1. 修改：/etc/docker
 
   2. 添加：DOCKER_OPTS = "--registry-mirror=镜像地址"
 
