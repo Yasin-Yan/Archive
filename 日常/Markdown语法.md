@@ -1,3 +1,9 @@
+---
+food: Pizza
+---
+
+
+
 ```flow
 st=>start: 开始
 op=>operation: 操作
@@ -7,4 +13,6 @@ st->op->cond
 cond(yes)->e
 cond(no)->op
 ```
+
+<h1>{{ page.food }}</h1>
 
