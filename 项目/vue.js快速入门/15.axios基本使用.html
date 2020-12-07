@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>axios基本使用</title>
+</head>
+<body>
+  <input type="button" value="Get请求" id="get">
+  <input type="button" value="Post请求" id="post">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    document.querySelector("#get").onclick = function(){
+      axios.get("http://127.0.0.1:9527/student/get/id=2016115030337").then(function(response){
+        console.log(response);
+      }, function(err){
+        console.log(err);
+      })
+    }
+
+    document.querySelector("#post").onclick = function(){
+      axios.post("http://127.0.0.1:9527/student/pageQuery", { "curPage":2, "pageSize":10}).then(function(response){
+        console.log(response);
+      }, function(err){
+        console.log(err);
+      })
+    }
+  </script>
+</body>
+</html>

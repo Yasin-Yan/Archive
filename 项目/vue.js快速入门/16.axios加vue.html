@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue基础</title>
+</head>
+
+<body>
+  <div id="app">
+    <input type="text" v-model="curPage">
+    <input type="text" v-model="pageSize">
+    <input type="button" value="分页查询" v-on:click="getList">
+    <ul>
+      <li v-for="(student,index) in studentList">
+        <ul>
+          <li>{{index+1}}</li>
+          <li>{{student.name}}</li>
+          <li>{{student.idCard}}</li>
+          <li>{{student.professional}}</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        studentList:[],
+        index:0,
+        curPage:2,
+        pageSize:10
+      },
+      methods:{
+        getList:function(){
+          that = this;
+          axios.post("http://127.0.0.1:9527/student/pageQuery",{"curPage":this.curPage, "pageSize":this.pageSize}).then(function(response){
+            console.log(response.data.data);
+            that.studentList = response.data.data;
+          }, function(err){
+            console.log(response);
+          })
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

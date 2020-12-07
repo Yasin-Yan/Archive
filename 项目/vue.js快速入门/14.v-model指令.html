@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-model指令</title>
+</head>
+
+<body>
+  <div id="app">
+    <input type="button" value="修改数据" v-on:click="setM">
+    <input type="text" v-model="message" v-on:keyup.enter="getM">
+    {{message}}
+  </div>
+  <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        message: "黑马程序员"
+      },
+      methods:{
+        getM:function(){
+          alert(this.message)
+        },
+        setM:function(){
+          this.message = "红马程序员"
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
